@@ -5,7 +5,8 @@
 #include <grpcpp/grpcpp.h>
 #include "viface/viface.hpp"
 
-#ifdef BAZEL_BUILD
+#ifdef BAZEL_BUILD    /not sure if this is the right format
+
 #include "etherInter.grpc.pb.h"
 #endif
 
@@ -29,7 +30,9 @@ class InterfaceManagerClient  {
     Interface request;
     request.set_name(user);
 
-    // Container for the data we expect from the server.
+  /*  **************** first draft ***************
+  
+  // Container for the data we expect from the server.
     HelloReply reply;
 
     // Context for the client. It could be used to convey extra information to
@@ -46,7 +49,7 @@ class InterfaceManagerClient  {
       std::cout << status.error_code() << ": " << status.error_message()
                 << std::endl;
       return "RPC failed";
-    }
+    }*/
   }   
   
    
