@@ -35,19 +35,60 @@ package ethernet;
 
 // The Interface manager definition.
 service InterfaceManager{
+
+//***************** first draft ***************
 //sets the IPV4 
-  rpc setIPV4(Interface) returns () {}
+//  rpc setIPV4(Interface) returns () {}
 //gets the IPV4  
-  rpc getIPV4(Interface) returns () {}
+//  rpc getIPV4(Interface) returns () {}
 //sets the network DHCP 
-  rpc setDHCP(Interface) returns () {}
+//  rpc setDHCP(Interface) returns () {}
 //gets the network DHCP 
-  rpc getDHCP(Interface) returns () {}
+ // rpc getDHCP(Interface) returns () {}
 //sets the network state    
-  rpc setState(State) returns () {}
+//  rpc setState(State) returns () {}
 //gets the network state  
-  rpc getState(State) returns () {}
+//  rpc getState(State) returns () {}
   
+  
+//***************** second draft ***************
+
+//gets all information related to the Enthernet network
+  rpc getInformation (InfoRequest) returns (InfoReply) {} 
+//sets the IPV4 
+  rpc setIPV4(Interface) returns () {}  
+//sets the network DHCP 
+  rpc setDHCP(Interface) returns () {}  
+//sets the network state    
+  rpc setState(State) returns () {} 
+  
+}
+
+
+//***************** first draft ***************
+// Interface message containing the network name, its new IP adress as well as its new DHCP
+//message Interface {
+// string name;
+//  string new_IP;
+//  bool new_DHCP=true;
+//}
+
+// State message containing the network state
+// message State {
+// bool State=1;
+//}
+
+
+//***************** second draft ***************
+
+message InfoRequest {
+  string name;
+  string new_IP;
+  bool new_DHCP=true;
+  bool state = 1;
+}
+message InfoReply {
+  string message = 1;
 }
 
 // Interface message containing the network name, its new IP adress as well as its new DHCP
@@ -55,11 +96,9 @@ message Interface {
   string name;
   string new_IP;
   bool new_DHCP=true;
-
 }
 
 // State message containing the network state
- message State {
+message State {
   bool State=1;
-
 }
