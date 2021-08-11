@@ -1,11 +1,12 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <vector> 
 
 #include <grpcpp/grpcpp.h>
 #include "viface/viface.hpp"
 
-#ifdef BAZEL_BUILD    /not sure if this is the right format
+#ifdef BAZEL_BUILD    //not sure if this is the right format
 
 #include "etherInter.grpc.pb.h"
 #endif
@@ -25,10 +26,13 @@ class InterfaceManagerClient  {
       : stub_(InterfaceManager::NewStub(channel)) {}
   // Assembles the client's payload, sends it and presents the response back
   // from the server.     
-   std::string setIPV4(const std::string& user) {
+   vector<std::string> getInformation(const vector<std::string>& user) {
     // Data we are sending to the server.
-    Interface request;
-    request.set_name(user);
+    InfoRequest request;
+    request.set_name(user.push_back(0));
+    request.set_IP(user.push_back(1));
+    request.set_DHCP(user.push_back(2));
+    request.set_IP(user.push_back(3));
 
   /*  **************** first draft ***************
   
