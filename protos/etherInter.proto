@@ -83,9 +83,9 @@ service InterfaceManager{
 
 message InfoRequest {
   string name;
-  string new_IP;
-  bool new_DHCP=true;
-  bool state = 1;
+  string IP;
+  string DHCP="true";
+  string state = "1";
 }
 message InfoReply {
   string message = 1;
