@@ -34,10 +34,9 @@ class InterfaceManagerClient  {
     request.set_DHCP(user.push_back(2));
     request.set_IP(user.push_back(3));
 
-  /*  **************** first draft ***************
-  
+ 
   // Container for the data we expect from the server.
-    HelloReply reply;
+    InfoReply reply;
 
     // Context for the client. It could be used to convey extra information to
     // the server and/or tweak certain RPC behaviors.
@@ -53,8 +52,24 @@ class InterfaceManagerClient  {
       std::cout << status.error_code() << ": " << status.error_message()
                 << std::endl;
       return "RPC failed";
-    }*/
+    }
   }   
   
-   
+  private:
+   std::unique_ptr<InterfaceManager::Stub> stub_;  
+};
+
+
+int main(int argc, char** argv) {
+  // Instantiate the client. It requires a channel, out of which the actual RPCs
+  // are created. This channel models a connection to an endpoint (in this case,
+  // localhost at port 50051). We indicate that the channel isn't authenticated
+  // (use of InsecureChannelCredentials()).
+  InterfaceManager info(grpc::CreateChannel(
+      "localhost:50051", grpc::InsecureChannelCredentials()));
+  vector<std::string> user(4);
+ //////////
+  std::string reply = greeter.SayHello(user);
+  std::cout << "Greeter received: " << reply << std::endl;
+  return 0;
 }
