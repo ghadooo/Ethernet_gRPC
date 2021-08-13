@@ -70,9 +70,9 @@ int main(int argc, char** argv) {
   InterfaceManager info(grpc::CreateChannel(
       "localhost:50051", grpc::InsecureChannelCredentials()));
   vector<std::string> user(4);
-  vector<std::string> reply(4);
+  vector<std::string> reply;
   for (i(0); i<4 ; ++i) {
-   reply(i)= InterfaceManagerClient.getInformation(user(i));
+   reply.push_back(InterfaceManagerClient.getInformation(user(i)));
   std::cout << "Information received: " << reply(i) << std::endl; } 
   return 0;
 }
