@@ -6,54 +6,62 @@
 #include <grpcpp/grpcpp.h>
 #include "viface/viface.hpp"
 
-#ifdef BAZEL_BUILD    //not sure if this is the right format
-
 #include "etherInter.grpc.pb.h"
-#endif
 
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
 
-using etherInter::InfoRequest;
-using etherInter::InfoReply;
-using etherInter::Interface;
-using etherInter::State;
-using etherInter::InterfaceManager;
+using ethernet::InterfaceManager;
+using ethernet::InfoRequest;
+using ethernet::InfoReply;
+using ethernet::setIPV4Request;
+using ethernet::setDHCPRequest;
+using ethernet::setStateRequest;
+using ethernet::Empty;
 
 class InterfaceManagerClient  {
  public:
  
    InterfaceManagerClient(std::shared_ptr<Channel> channel)
       : stub_(InterfaceManager::NewStub(channel)) {}
+
   // Assembles the client's payload, sends it and presents the response back
   // from the server.     
-   vector<std::string> getInformation(const vector<std::string>& user) {
-    // Data we are sending to the server.
-    InfoRequest request;
-    request.set_name(user.push_back(0));
-    request.set_IP(user.push_back(1));
-    request.set_DHCP(user.push_back(2));
-    request.set_IP(user.push_back(3));
-
- 
-  // Container for the data we expect from the server.
-    InfoReply reply;
+   void getInformation(std::string name) {
 
     // Context for the client. It could be used to convey extra information to
     // the server and/or tweak certain RPC behaviors.
     ClientContext context;
+    //std::cout << "Context created. \n";
+
+    // Data we are sending to the server.
+    InfoRequest request;
+    request.set_name(name);
+    //std::cout << "Request created. \n";
+
+    // Container for the data we expect from the server.
+    InfoReply reply;
+    //std::cout << "Reply created. \n";
 
     // The actual RPC.
     Status status = stub_->getInformation(&context, request, &reply);
+    //std::cout << "getInformation sent. \n";
 
     // Act upon its status.
     if (status.ok()) {
-      return reply.message();
+      //std::cout << "Status ok \n";
+      const char * state = (reply.state() == true) ? "Up" : "Down";
+      
+      std::cout << "+------ " << name << " information ------+ \n";
+      std::cout << "| MAC  : " << reply.mac() << "\n";
+      std::cout << "| IPv4 : " << reply.ip() << "\n";
+      std::cout << "| MASK : " << reply.mask() << "\n";
+      std::cout << "| STATE: " << state << "\n";
+      std::cout << "+--------------------------------+ \n";
+
     } else {
-      std::cout << status.error_code() << ": " << status.error_message()
-                << std::endl;
-      return "RPC failed";
+      std::cout << status.error_code() << ": " << status.error_message() << std::endl;
     }
   }   
   
@@ -67,12 +75,12 @@ int main(int argc, char** argv) {
   // are created. This channel models a connection to an endpoint (in this case,
   // localhost at port 50051). We indicate that the channel isn't authenticated
   // (use of InsecureChannelCredentials()).
-  InterfaceManager info(grpc::CreateChannel(
-      "localhost:50051", grpc::InsecureChannelCredentials()));
-  vector<std::string> user(4);
-  vector<std::string> reply;
-  for (i(0); i<4 ; ++i) {
-   reply.push_back(InterfaceManagerClient.getInformation(user(i)));
-  std::cout << "Information received: " << reply(i) << std::endl; } 
+  InterfaceManagerClient infoClient(grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials()));
+
+  //std::cout << "Client created. \n";
+
+  infoClient.getInformation("wlp3s0");
+  infoClient.getInformation("enp2s0");
+
   return 0;
 }

@@ -58,11 +58,12 @@ target_link_libraries(hw_grpc_proto
 
 # Targets ether_[async_](client|server)
 foreach(_target
-  ether_client ether_server)
+  ethernet_client ethernet_server)
   add_executable(${_target} "${_target}.cc")
   target_link_libraries(${_target}
     hw_grpc_proto
     ${_REFLECTION}
     ${_GRPC_GRPCPP}
-    ${_PROTOBUF_LIBPROTOBUF})
+    ${_PROTOBUF_LIBPROTOBUF}
+    viface)
 endforeach()
