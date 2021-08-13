@@ -15,6 +15,8 @@ using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
 
+using etherInter::InfoRequest;
+using etherInter::InfoReply;
 using etherInter::Interface;
 using etherInter::State;
 using etherInter::InterfaceManager;
@@ -43,7 +45,7 @@ class InterfaceManagerClient  {
     ClientContext context;
 
     // The actual RPC.
-    Status status = stub_->SayHello(&context, request, &reply);
+    Status status = stub_->getInformation(&context, request, &reply);
 
     // Act upon its status.
     if (status.ok()) {
@@ -69,7 +71,9 @@ int main(int argc, char** argv) {
       "localhost:50051", grpc::InsecureChannelCredentials()));
   vector<std::string> user(4);
  //////////
-  std::string reply = greeter.SayHello(user);
-  std::cout << "Greeter received: " << reply << std::endl;
+  vector<std::string> reply(4)
+  for (i(0); i<4 ; ++i) {
+   reply(i)= InterfaceManagerClient.getInformation(user(i));
+  std::cout << "Information received: " << reply << std::endl;
   return 0;
 }
