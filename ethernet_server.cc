@@ -27,10 +27,10 @@ class InterfaceManagerServiceImpl final : public InterfaceManager::Service {
   Status getInformation(ServerContext* context, const InfoRequest* request,
                   InfoReply* reply) override {
     vector<std::string> prefix(4);
-    prefix(0)="Name";
-    prefix(1)="IPV4";
-    prefix(2)="DHCP";
-    prefix(3)="State";
+    prefix(0)="Name : ";
+    prefix(1)="IPV4 : ";
+    prefix(2)="DHCP : ";
+    prefix(3)="State : ";
     vector<std::string> reply(4);
     for (i(0); i<4 ; ++i) {
     reply(i)->set_message(prefix(i) + request->name()); }
