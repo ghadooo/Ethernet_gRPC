@@ -27,6 +27,7 @@ using ethernet::Empty;
 // Logic and data behind the server's behavior.
 class InterfaceManagerServiceImpl final : public InterfaceManager::Service {
   
+  // displays network information
   Status getInformation(
                   ServerContext* context, 
                   const InfoRequest* request,
@@ -45,21 +46,51 @@ class InterfaceManagerServiceImpl final : public InterfaceManager::Service {
   }
 
     // sets the IPV4 
-    Status setIPV4(ServerContext* context, const setIPV4Request* request, Empty* response) override {
+    Status setIPV4(
+                  ServerContext* context, 
+                  const setIPV4Request* request, 
+                  Empty* response) override {
       // libviface
+      std::cout << "Got request for setIPV4, interface: " << request->name() << "\n";
       viface::VIface iface(request->name());
+
+      iface.setIPv4(request->ip());
+      iface.setIPv4Netmask(request->mask());
+
       return Status::OK;
     }
+
+
     // sets the network DHCP 
-    Status setDHCP(ServerContext* context, const setDHCPRequest* request, Empty* response) override {
+    Status setDHCP(
+                  ServerContext* context, 
+                  const setDHCPRequest* request, 
+                  Empty* response) override {
       // libviface
+      std::cout << "Got request for setDHCP, interface: " << request->name() << "\n";
       viface::VIface iface(request->name());
+
+      // looking for DHCP in lib
+
       return Status::OK;
     }
+
+
     // sets the network state    
-    Status setState(ServerContext* context, const setStateRequest* request, Empty* response) override {
+    Status setState(
+                  ServerContext* context, 
+                  const setStateRequest* request, 
+                  Empty* response) override {
       // libviface
+      std::cout << "Got request for setState, interface: " << request->name() << "\n";
       viface::VIface iface(request->name());
+
+      if (request->state()){
+        iface.up();
+      }
+      else iface.down();
+      
+
       return Status::OK;
     }
 
