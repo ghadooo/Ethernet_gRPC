@@ -163,10 +163,10 @@ int main(int argc, char** argv) {
   //infoClient.getInformation("enp2s0");
 
   std::cout << "+------ Further Settings  ------+ \n";
-  std::cout << "|\t Setting IPv4    : 1   |\n";
-  std::cout << "|\t Setting state   : 2   |\n";
-  std::cout << "|\t Setting DHCP    : 3   |\n";
-  std::cout << "|\t EXIT            : 4   |\n";
+  std::cout << "|\t Setting IPv4    : 1\t|\n";
+  std::cout << "|\t Setting state   : 2\t|\n";
+  std::cout << "|\t Setting DHCP    : 3\t|\n";
+  std::cout << "|\t EXIT            : 4\t|\n";
   std::cout << "+--------------------------------+ \n";
 
   int x;
