@@ -55,10 +55,10 @@ class InterfaceManagerClient  {
       const char * state = (reply.state() == true) ? "Up" : "Down";
       
       std::cout << "+------ " << name << " information ------+ \n";
-      std::cout << "| MAC  : " << reply.mac() << "  |\n";
-      std::cout << "| IPv4 : " << reply.ip() << "  |\n";
-      std::cout << "| MASK : " << reply.mask() << "  |\n";
-      std::cout << "| STATE: " << state << "  |\n";
+      std::cout << "|\tMAC  : " << reply.mac() << "\t|\n";
+      std::cout << "|\tIPv4 : " << reply.ip() << "\t|\n";
+      std::cout << "|\t MASK : " << reply.mask() << "\t|\n";
+      std::cout << "|\t STATE: " << state << "\t|\n";
       std::cout << "+--------------------------------+ \n";
 
     } else {
@@ -94,10 +94,10 @@ void setIPV4(std::string name, std::string ip, std::string mask) {
       std::cout << "Status ok \n";
       
       std::cout << "+------ Setting " << name << "'s IPv4 ------+ \n";
-      //std::cout << "| MAC  : " << reply.mac() << "\n";
-      std::cout << "| new IPv4 : " << ip << " |\n";
-      std::cout << "| new MASK : " << mask << " |\n";
-      //std::cout << "| STATE: " << state << "\n";
+      //std::cout << "|\t MAC  : " << reply.mac() << "\t|\n";
+      std::cout << "|\t new IPv4 : " << ip << "\t|\n";
+      std::cout << "|\t new MASK : " << mask << "\t|\n";
+      //std::cout << "|\t STATE: " << state << "\t|\n";
       std::cout << "+--------------------------------+ \n";
 
     } else {
@@ -132,10 +132,10 @@ void setState(std::string name, bool new_state) {
       std::cout << "Status ok \n";
       
       std::cout << "+------ Setting " << name << "'s state ------+ \n";
-      //std::cout << "| MAC  : " << reply.mac() << "\n";
-      //std::cout << "| new IPv4 : " << reply.ip() << "\n";
-      //std::cout << "| new MASK : " << reply.mask() << "\n";
-      std::cout << "| new STATE: " << new_state << "  |\n";
+      //std::cout << "|\t MAC  : " << reply.mac() << "\t|\n";
+      //std::cout << "|\t new IPv4 : " << reply.ip() << "\t|\n";
+      //std::cout << "|\t new MASK : " << reply.mask() << "\t|\n";
+      std::cout << "|\t new STATE: " << new_state << "\t|\n";
       std::cout << "+--------------------------------+ \n";
 
     } else {
