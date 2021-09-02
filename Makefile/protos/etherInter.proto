@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package ethernet;
+
+message InfoRequest {
+  string name = 1;
+}
+
+message InfoReply {
+  string mac  = 1;
+  string ip   = 2;
+  string mask = 3;
+  bool state  = 4;
+}
+
+message setIPV4Request {
+  string name = 1;
+  string ip = 2;
+  string mask = 3;
+}
+
+message setDHCPRequest {
+  string name = 1;
+  bool dhcp   = 2;
+}
+
+// State message containing the network state
+message setStateRequest {
+  string name = 1;
+  bool state  = 2;
+}
+
+// The Interface manager definition.
+service InterfaceManager{
+  //gets all information related to the Enthernet network
+  rpc getInformation (InfoRequest) returns (InfoReply) {} 
+  //sets the IPV4 
+  rpc setIPV4(setIPV4Request) returns (Empty) {}  
+  //sets the network DHCP 
+  rpc setDHCP(setDHCPRequest) returns (Empty) {}  
+  //sets the network state    
+  rpc setState(setStateRequest) returns (Empty) {} 
+}
+
+message Empty {
+}
