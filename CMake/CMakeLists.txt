@@ -12,10 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# cmake build file for C++ helloworld example.
-# Assumes protobuf and gRPC have been installed using cmake.
-# See cmake_externalproject/CMakeLists.txt for all-in-one cmake build
-# that automatically builds all the dependencies before building helloworld.
+
 
 cmake_minimum_required(VERSION 3.5.1)
 
